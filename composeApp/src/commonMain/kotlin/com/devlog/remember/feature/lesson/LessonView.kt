@@ -14,100 +14,104 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.devlog.remember.designsystem.ButtonSize
 import com.devlog.remember.model.Word
-
+import com.devlog.remember.designsystem.ButtonStyle
+import com.devlog.remember.designsystem.RDSButton
+import com.devlog.remember.designsystem.RDSProgressBar
+import kotlin.math.max
 @Composable
 fun LessonScreen(
-    words: List<Word>,              // 오늘 묶음 (예: words.take(15))
-    index: Int,                     // 현재 인덱스 (0-based)
-    onPrev: () -> Unit = {},        // ← 버튼 등 필요시
-    onKnown: () -> Unit,            // “알고 있는 단어예요”
-    onUnknown: () -> Unit           // “모르는 단어예요”
+    batch: List<Word>,
+    onFinished: () -> Unit,
+    onBack: () -> Unit
 ) {
-    val total = words.size.coerceAtLeast(1)
-    val safeIdx = index.coerceIn(0, total - 1)
-    val item = words[safeIdx]
-    var revealed by remember(safeIdx) { mutableStateOf(false) }
+    val total = batch.size.coerceAtLeast(1)
+    val queue = remember(batch) { ArrayDeque(batch) }
+    var knownCount by remember { mutableStateOf(0) }
+    var showMeaning by remember(queue.size) { mutableStateOf(true) }
+
+    if (queue.isEmpty()) {
+        LaunchedEffect(Unit) { onFinished() }  // ✅ 리스트 안 넘김
+        return
+    }
+
+    val current = queue.first()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
             .padding(horizontal = 20.dp, vertical = 12.dp)
     ) {
-        // 헤더
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("←", fontSize = 20.sp, modifier = Modifier.clickable { onPrev() })
+        // 헤더 + 진행
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("←", fontSize = 20.sp, modifier = Modifier.clickable { onBack() })
             Spacer(Modifier.width(8.dp))
             Text("오늘 학습", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
             Spacer(Modifier.weight(1f))
-            Text("${safeIdx}/$total", color = Color(0xFF6B7280))
+            Text("$knownCount / $total", color = Color(0xFF6B7280))
         }
         Spacer(Modifier.height(8.dp))
-
-        // 프로그레스바
         LinearProgressIndicator(
-            progress = (safeIdx / total.toFloat()),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(8.dp)),
+            progress = { knownCount / total.toFloat() },
+            modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(8.dp)),
             trackColor = Color(0xFFE5E7EB)
         )
         Spacer(Modifier.height(16.dp))
 
-        // 카드
+        // 카드 (탭으로 뜻↔단어)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
                 .clip(RoundedCornerShape(24.dp))
                 .background(Color(0xFFF3F4F6))
-                .clickable { revealed = true },
+                .clickable { showMeaning = !showMeaning },
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = item.term,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color(0xFF111827),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(Modifier.height(8.dp))
-                if (revealed) {
-                    Text(item.meaning, fontSize = 18.sp, color = Color(0xFF374151))
-                    item.example?.let {
-                        Spacer(Modifier.height(6.dp))
-                        Text(it, fontSize = 14.sp, color = Color(0xFF6B7280), textAlign = TextAlign.Center)
-                    }
+                if (showMeaning) {
+                    Text(current.meaning, fontSize = 22.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                    Spacer(Modifier.height(8.dp)); Text("탭: 단어 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
                 } else {
-                    Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
+                    Text(current.term, fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, textAlign = TextAlign.Center)
+                    Spacer(Modifier.height(8.dp)); Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
+                    current.example?.let { Spacer(Modifier.height(8.dp)); Text(it, fontSize = 14.sp, color = Color(0xFF6B7280), textAlign = TextAlign.Center) }
                 }
             }
         }
-
-        // 하단 버튼
-        Row(
+        Spacer(Modifier.height(8.dp))
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Button(
-                onClick = { revealed = false; onUnknown() },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
-                shape = RoundedCornerShape(16.dp)
-            ) { Text("모르는 단어예요", fontWeight = FontWeight.SemiBold) }
+            RDSButton(
+                onClick = {
+                    // 모르면 뒤로
+                    queue.addLast(queue.removeFirst())
+                    showMeaning = true
+                },
+                modifier = Modifier.fillMaxWidth(),
+                style = ButtonStyle.Danger,
+                size = ButtonSize.Large,  // ⬅ Medium 대신 Large 써도 안정감 있음
+                text = "모르는 단어예요"
+            )
 
-            Button(
-                onClick = { revealed = false; onKnown() },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
-                shape = RoundedCornerShape(16.dp)
-            ) { Text("알고 있는 단어예요", fontWeight = FontWeight.SemiBold) }
+            RDSButton(
+                onClick = {
+                    // 알면 제거 + 진행 증가
+                    queue.removeFirst()
+                    knownCount++
+                    showMeaning = true
+                },
+                modifier = Modifier.fillMaxWidth(),
+                style = ButtonStyle.Success,
+                size = ButtonSize.Large,
+                text = "알고 있는 단어예요"
+            )
         }
+
         Spacer(Modifier.height(8.dp))
     }
 }
