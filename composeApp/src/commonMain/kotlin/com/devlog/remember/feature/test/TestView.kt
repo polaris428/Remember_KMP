@@ -1,4 +1,3 @@
-// composeApp/src/commonMain/kotlin/com/devlog/remember/feature/test/TestScreenRN.kt
 package com.devlog.remember.feature.test
 
 import androidx.compose.foundation.BorderStroke
@@ -27,7 +26,6 @@ fun TestScreen(
     onCompleteAllCorrect: () -> Unit,
     onBack: () -> Unit = {}
 ) {
-
     val greenBg  = Color(0xFFD1FAE5)  // emerald-100
     val greenBd  = Color(0xFF10B981)  // emerald-500
     val redBg    = Color(0xFFFEE2E2)  // red-100
@@ -40,7 +38,7 @@ fun TestScreen(
 
     val queue = remember(words) { ArrayDeque(words) }
     var correctCount by remember { mutableStateOf(0) }
-    var locked by remember { mutableStateOf(false) }              // 피드백 동안 입력 잠금
+    var locked by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<String?>(null) }
     var correctAnswer by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
@@ -58,6 +56,7 @@ fun TestScreen(
     val current = queue.first()
     val options = remember(current, words) { makeOptions(words, current) }
     val tts = rememberPlatformTts()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,13 +107,13 @@ fun TestScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        current.term,
+                        current.headword, // ✅ term → headword
                         fontSize = 36.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = titleTx,
                         modifier = Modifier.weight(1f)
                     )
-                    IconButton(onClick = { tts.speak(current.term) }) { // ✅ 듣기 버튼
+                    IconButton(onClick = { tts.speak(current.headword) }) { // ✅ 발음 듣기
                         Icon(
                             imageVector = Icons.Filled.VolumeUp,
                             contentDescription = "Play pronunciation",
@@ -123,7 +122,7 @@ fun TestScreen(
                     }
                 }
                 Spacer(Modifier.height(6.dp))
-                Text("n. • L1", fontSize = 14.sp, color = hintTx) // 필요 없으면 지워도 됨
+                Text("${current.pos} • L${current.level}", fontSize = 14.sp, color = hintTx)
                 Spacer(Modifier.height(16.dp))
             }
         }
@@ -136,7 +135,7 @@ fun TestScreen(
             val border = when {
                 isSelected && correctAnswer != null && option == current.meaning -> BorderStroke(1.dp, greenBd)
                 isSelected && correctAnswer != null && option != current.meaning -> BorderStroke(1.dp, redBd)
-                !isSelected && correctAnswer != null && isCorrect               -> BorderStroke(1.dp, greenBd) // 오답 선택 시 정답도 표시
+                !isSelected && correctAnswer != null && isCorrect               -> BorderStroke(1.dp, greenBd)
                 else -> BorderStroke(1.dp, chipBd)
             }
             val bg = when {
@@ -170,7 +169,6 @@ fun TestScreen(
                                     queue.removeFirst()
                                     queue.addLast(current)
                                 }
-                                // reset feedback state
                                 selected = null
                                 correctAnswer = null
                                 locked = false

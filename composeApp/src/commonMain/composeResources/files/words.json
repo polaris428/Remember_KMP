@@ -1,12 +1,902 @@
 [
-  { "term": "abandon", "meaning": "버리다; 포기하다", "example": "He abandoned the plan." },
-  { "term": "ability", "meaning": "능력", "example": "She has the ability to lead." },
-  { "term": "absorb", "meaning": "흡수하다", "example": "Plants absorb sunlight." },
-  { "term": "access", "meaning": "접근, 접근하다", "example": "You need a password to access the file." },
-  { "term": "accurate", "meaning": "정확한", "example": "The results are accurate." },
-  { "term": "achieve", "meaning": "달성하다", "example": "We achieved our goal." },
-  { "term": "adapt", "meaning": "적응하다; 개조하다", "example": "Animals adapt to new environments." },
-  { "term": "affect", "meaning": "영향을 미치다", "example": "Weather can affect mood." },
-  { "term": "afford", "meaning": "여유가 있다", "example": "I can’t afford it now." },
-  { "term": "agree", "meaning": "동의하다", "example": "I agree with your idea." }
+  {
+    "id":1,
+    "headword":"executive",
+    "pos":"n.",
+    "meaning":"경영진, 임원",
+    "example (English)":"All of the executives agreed with the new policy.",
+    "example (Korean)":"모든 경영진이 새 정책에 동의했습니다.",
+    "level":1
+  },
+  {
+    "id":2,
+    "headword":"inventory",
+    "pos":"n.",
+    "meaning":"재고, 재고 목록",
+    "example (English)":"The company is conducting a full inventory of its products.",
+    "example (Korean)":"그 회사는 제품들의 전체 재고 목록 조사를 실시하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":3,
+    "headword":"feature",
+    "pos":"n.",
+    "meaning":"특징, 특색",
+    "example (English)":"A feature of this new car is its great gas mileage.",
+    "example (Korean)":"이 새 차의 특징은 훌륭한 연비입니다.",
+    "level":1
+  },
+  {
+    "id":4,
+    "headword":"acknowledge",
+    "pos":"v.",
+    "meaning":"수신을 인정하다, 감사를 표현하다",
+    "example (English)":"I would like to acknowledge your contribution to the project.",
+    "example (Korean)":"저는 그 프로젝트에 대한 당신의 공헌에 감사를 표현하고 싶습니다.",
+    "level":1
+  },
+  {
+    "id":5,
+    "headword":"voucher",
+    "pos":"n.",
+    "meaning":"상품권, 바우처",
+    "example (English)":"She used a voucher to get a discount.",
+    "example (Korean)":"그녀는 할인을 받기 위해 상품권을 사용했습니다.",
+    "level":1
+  },
+  {
+    "id":6,
+    "headword":"estimate",
+    "pos":"n.",
+    "meaning":"견적서, 평가",
+    "example (English)":"He got a detailed estimate for the construction work.",
+    "example (Korean)":"그는 건축 공사에 대한 상세한 견적서를 받았습니다.",
+    "level":1
+  },
+  {
+    "id":7,
+    "headword":"issue",
+    "pos":"n.",
+    "meaning":"문제, 이슈",
+    "example (English)":"The main issue is the lack of communication.",
+    "example (Korean)":"주된 문제는 소통의 부족입니다.",
+    "level":1
+  },
+  {
+    "id":8,
+    "headword":"property",
+    "pos":"n.",
+    "meaning":"재산, 소유물",
+    "example (English)":"The company owns several properties in the city.",
+    "example (Korean)":"그 회사는 도시에 여러 재산을 소유하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":9,
+    "headword":"eligible",
+    "pos":"adj.",
+    "meaning":"자격이 있는",
+    "example (English)":"You are eligible for the discount.",
+    "example (Korean)":"당신은 할인을 받을 자격이 있습니다.",
+    "level":1
+  },
+  {
+    "id":10,
+    "headword":"initiative",
+    "pos":"n.",
+    "meaning":"주도권, 새로운 계획",
+    "example (English)":"The company launched a new green initiative.",
+    "example (Korean)":"그 회사는 새로운 친환경 계획을 시작했습니다.",
+    "level":1
+  },
+  {
+    "id":11,
+    "headword":"culinary",
+    "pos":"adj.",
+    "meaning":"요리의, 음식의",
+    "example (English)":"He is a well-known culinary expert.",
+    "example (Korean)":"그는 유명한 요리 전문가입니다.",
+    "level":1
+  },
+  {
+    "id":12,
+    "headword":"extensive",
+    "pos":"adj.",
+    "meaning":"광범위한",
+    "example (English)":"She has extensive knowledge of the local area.",
+    "example (Korean)":"그녀는 그 지역에 대한 광범위한 지식을 가지고 있습니다.",
+    "level":1
+  },
+  {
+    "id":13,
+    "headword":"deposit",
+    "pos":"n.",
+    "meaning":"예치금, 보증금",
+    "example (English)":"A deposit of $50 is required to book the room.",
+    "example (Korean)":"방을 예약하기 위해서는 50달러의 예치금이 요구됩니다.",
+    "level":1
+  },
+  {
+    "id":14,
+    "headword":"retail",
+    "pos":"n.",
+    "meaning":"소매",
+    "example (English)":"We are a retail company that sells sporting goods.",
+    "example (Korean)":"우리는 스포츠용품을 판매하는 소매 회사입니다.",
+    "level":1
+  },
+  {
+    "id":15,
+    "headword":"affordable",
+    "pos":"adj.",
+    "meaning":"가격이 알맞은",
+    "example (English)":"The hotel offers affordable rooms for business travelers.",
+    "example (Korean)":"그 호텔은 비즈니스 여행객들을 위해 가격이 알맞은 객실을 제공합니다.",
+    "level":1
+  },
+  {
+    "id":16,
+    "headword":"grant",
+    "pos":"v.",
+    "meaning":"승인하다, 수여하다",
+    "example (English)":"The manager granted his employee's request for a day off.",
+    "example (Korean)":"그 관리자는 직원들의 휴가 요청을 승인했습니다.",
+    "level":1
+  },
+  {
+    "id":17,
+    "headword":"significantly",
+    "pos":"adv.",
+    "meaning":"상당히, 현저하게",
+    "example (English)":"The new policy will significantly reduce the company's costs.",
+    "example (Korean)":"새 정책은 회사의 비용을 상당히 줄일 것입니다.",
+    "level":1
+  },
+  {
+    "id":18,
+    "headword":"valid",
+    "pos":"adj.",
+    "meaning":"유효한",
+    "example (English)":"This ticket is valid for one day only.",
+    "example (Korean)":"이 티켓은 하루만 유효합니다.",
+    "level":1
+  },
+  {
+    "id":19,
+    "headword":"confidential",
+    "pos":"adj.",
+    "meaning":"기밀의, 비밀의",
+    "example (English)":"The document contains confidential information.",
+    "example (Korean)":"그 서류는 기밀 정보를 포함하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":20,
+    "headword":"outstanding",
+    "pos":"adj.",
+    "meaning":"미해결의, 미지불된, 뛰어난",
+    "example (English)":"There are still a few outstanding issues to resolve.",
+    "example (Korean)":"해결해야 할 몇 가지 미해결 문제가 남아 있습니다.",
+    "level":1
+  },
+  {
+    "id":21,
+    "headword":"imperative",
+    "pos":"adj.",
+    "meaning":"긴급한, 필수적인",
+    "example (English)":"It is imperative that we act quickly.",
+    "example (Korean)":"우리가 빠르게 행동하는 것이 필수적입니다.",
+    "level":1
+  },
+  {
+    "id":22,
+    "headword":"substantial",
+    "pos":"adj.",
+    "meaning":"상당한",
+    "example (English)":"The company made a substantial profit this year.",
+    "example (Korean)":"그 회사는 올해 상당한 이익을 냈습니다.",
+    "level":1
+  },
+  {
+    "id":23,
+    "headword":"decline",
+    "pos":"v.",
+    "meaning":"감소하다, 거절하다",
+    "example (English)":"The number of visitors declined last month.",
+    "example (Korean)":"지난달 방문자 수가 감소했습니다.",
+    "level":1
+  },
+  {
+    "id":24,
+    "headword":"amenities",
+    "pos":"n.",
+    "meaning":"편의시설",
+    "example (English)":"The hotel has excellent amenities, including a swimming pool and a gym.",
+    "example (Korean)":"그 호텔은 수영장과 체육관을 포함한 훌륭한 편의시설을 갖추고 있습니다.",
+    "level":1
+  },
+  {
+    "id":25,
+    "headword":"renowned",
+    "pos":"adj.",
+    "meaning":"유명한",
+    "example (English)":"The restaurant is renowned for its seafood dishes.",
+    "example (Korean)":"그 식당은 해산물 요리로 유명합니다.",
+    "level":1
+  },
+  {
+    "id":26,
+    "headword":"preserve",
+    "pos":"v.",
+    "meaning":"보존하다",
+    "example (English)":"We must preserve our cultural heritage.",
+    "example (Korean)":"우리는 문화유산을 보존해야 합니다.",
+    "level":1
+  },
+  {
+    "id":27,
+    "headword":"presence",
+    "pos":"n.",
+    "meaning":"존재, 출석",
+    "example (English)":"Her presence made everyone feel more comfortable.",
+    "example (Korean)":"그녀의 존재는 모든 사람들을 더 편안하게 만들었습니다.",
+    "level":1
+  },
+  {
+    "id":28,
+    "headword":"laboratory",
+    "pos":"n.",
+    "meaning":"실험실",
+    "example (English)":"The scientist is working in the laboratory.",
+    "example (Korean)":"그 과학자는 실험실에서 일하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":29,
+    "headword":"reimburse",
+    "pos":"v.",
+    "meaning":"환급하다, 상환하다",
+    "example (English)":"The company will reimburse your travel expenses.",
+    "example (Korean)":"그 회사는 당신의 여행 경비를 환급할 것입니다.",
+    "level":1
+  },
+  {
+    "id":30,
+    "headword":"premises",
+    "pos":"n.",
+    "meaning":"건물과 토지, 부지",
+    "example (English)":"The company is moving to a new premises next month.",
+    "example (Korean)":"그 회사는 다음 달에 새로운 부지로 이전할 것입니다.",
+    "level":1
+  },
+  {
+    "id":31,
+    "headword":"renovate",
+    "pos":"v.",
+    "meaning":"수리하다, 개조하다",
+    "example (English)":"We are planning to renovate our office next year.",
+    "example (Korean)":"우리는 내년에 사무실을 개조할 계획입니다.",
+    "level":1
+  },
+  {
+    "id":32,
+    "headword":"versatile",
+    "pos":"adj.",
+    "meaning":"다재다능한, 다용도의",
+    "example (English)":"The new machine is very versatile and can be used for many different tasks.",
+    "example (Korean)":"그 새 기계는 매우 다용도이며 많은 다른 작업에 사용될 수 있습니다.",
+    "level":1
+  },
+  {
+    "id":33,
+    "headword":"implement",
+    "pos":"v.",
+    "meaning":"실행하다",
+    "example (English)":"The company decided to implement the new policy immediately.",
+    "example (Korean)":"그 회사는 새 정책을 즉시 실행하기로 결정했습니다.",
+    "level":1
+  },
+  {
+    "id":34,
+    "headword":"commitment",
+    "pos":"n.",
+    "meaning":"약속, 헌신",
+    "example (English)":"The company has a strong commitment to its employees.",
+    "example (Korean)":"그 회사는 직원들에게 강한 헌신을 가지고 있습니다.",
+    "level":1
+  },
+  {
+    "id":35,
+    "headword":"facilitate",
+    "pos":"v.",
+    "meaning":"용이하게 하다, 촉진하다",
+    "example (English)":"The new software will facilitate communication between team members.",
+    "example (Korean)":"새 소프트웨어는 팀원들 간의 소통을 용이하게 할 것입니다.",
+    "level":1
+  },
+  {
+    "id":36,
+    "headword":"persuade",
+    "pos":"v.",
+    "meaning":"설득하다",
+    "example (English)":"He tried to persuade her to change her mind.",
+    "example (Korean)":"그는 그녀가 마음을 바꾸도록 설득하려고 노력했습니다.",
+    "level":1
+  },
+  {
+    "id":37,
+    "headword":"accompany",
+    "pos":"v.",
+    "meaning":"동반하다, 함께 가다",
+    "example (English)":"He was accompanied by his wife at the event.",
+    "example (Korean)":"그는 그 행사에서 아내와 동행했습니다.",
+    "level":1
+  },
+  {
+    "id":38,
+    "headword":"renew",
+    "pos":"v.",
+    "meaning":"갱신하다, 재개하다",
+    "example (English)":"You need to renew your passport before you travel.",
+    "example (Korean)":"여행하기 전에 여권을 갱신해야 합니다.",
+    "level":1
+  },
+  {
+    "id":39,
+    "headword":"reliable",
+    "pos":"adj.",
+    "meaning":"믿을 수 있는, 신뢰할 수 있는",
+    "example (English)":"The company is looking for a reliable person to join the team.",
+    "example (Korean)":"그 회사는 팀에 합류할 신뢰할 수 있는 사람을 찾고 있습니다.",
+    "level":1
+  },
+  {
+    "id":40,
+    "headword":"publicity",
+    "pos":"n.",
+    "meaning":"언론 보도, 광고",
+    "example (English)":"The new product received a lot of publicity.",
+    "example (Korean)":"그 신제품은 많은 언론 보도를 받았습니다.",
+    "level":1
+  },
+  {
+    "id":41,
+    "headword":"instructor",
+    "pos":"n.",
+    "meaning":"강사, 교관",
+    "example (English)":"The instructor explained the rules of the game.",
+    "example (Korean)":"그 강사는 게임의 규칙을 설명했습니다.",
+    "level":1
+  },
+  {
+    "id":42,
+    "headword":"contractor",
+    "pos":"n.",
+    "meaning":"계약자, 도급업자",
+    "example (English)":"The company hired a contractor to build the new office.",
+    "example (Korean)":"그 회사는 새 사무실을 짓기 위해 도급업자를 고용했습니다.",
+    "level":1
+  },
+  {
+    "id":43,
+    "headword":"overdue",
+    "pos":"adj.",
+    "meaning":"기한이 지난, 연체된",
+    "example (English)":"This bill is overdue.",
+    "example (Korean)":"이 청구서는 기한이 지났습니다.",
+    "level":1
+  },
+  {
+    "id":44,
+    "headword":"merchandise",
+    "pos":"n.",
+    "meaning":"상품, 물품",
+    "example (English)":"The store has a wide selection of merchandise.",
+    "example (Korean)":"그 상점은 다양한 상품을 구비하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":45,
+    "headword":"authority",
+    "pos":"n.",
+    "meaning":"권한, 당국",
+    "example (English)":"The manager has the authority to make decisions.",
+    "example (Korean)":"그 관리자는 결정을 내릴 권한이 있습니다.",
+    "level":1
+  },
+  {
+    "id":46,
+    "headword":"fiscal",
+    "pos":"adj.",
+    "meaning":"재정의, 회계의",
+    "example (English)":"The company's fiscal year ends on December 31st.",
+    "example (Korean)":"그 회사의 회계연도는 12월 31일에 끝납니다.",
+    "level":1
+  },
+  {
+    "id":47,
+    "headword":"timely",
+    "pos":"adj.",
+    "meaning":"시기적절한",
+    "example (English)":"The report provided timely information for the decision.",
+    "example (Korean)":"그 보고서는 결정에 필요한 시기적절한 정보를 제공했습니다.",
+    "level":1
+  },
+  {
+    "id":48,
+    "headword":"impose",
+    "pos":"v.",
+    "meaning":"(세금, 규제 등을) 부과하다",
+    "example (English)":"The government will impose a new tax on imported goods.",
+    "example (Korean)":"정부는 수입품에 새로운 세금을 부과할 것입니다.",
+    "level":1
+  },
+  {
+    "id":49,
+    "headword":"merger",
+    "pos":"n.",
+    "meaning":"합병",
+    "example (English)":"The company is planning a merger with a rival company.",
+    "example (Korean)":"그 회사는 경쟁사와 합병을 계획하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":50,
+    "headword":"demonstration",
+    "pos":"n.",
+    "meaning":"증명, 시연",
+    "example (English)":"The company gave a demonstration of its new product.",
+    "example (Korean)":"그 회사는 새 제품에 대한 시연을 했습니다.",
+    "level":1
+  },
+  {
+    "id":51,
+    "headword":"fluctuate",
+    "pos":"v.",
+    "meaning":"변동하다",
+    "example (English)":"The price of oil is expected to fluctuate over the next few months.",
+    "example (Korean)":"유가는 앞으로 몇 달 동안 변동할 것으로 예상됩니다.",
+    "level":1
+  },
+  {
+    "id":52,
+    "headword":"devoted",
+    "pos":"adj.",
+    "meaning":"헌신적인, 열정적인",
+    "example (English)":"She is a devoted teacher who always helps her students.",
+    "example (Korean)":"그녀는 항상 학생들을 돕는 헌신적인 교사입니다.",
+    "level":1
+  },
+  {
+    "id":53,
+    "headword":"promptly",
+    "pos":"adv.",
+    "meaning":"지체 없이, 즉시",
+    "example (English)":"The customer service representative responded promptly to my email.",
+    "example (Korean)":"고객 서비스 담당자가 제 이메일에 즉시 응답했습니다.",
+    "level":1
+  },
+  {
+    "id":54,
+    "headword":"capacity",
+    "pos":"n.",
+    "meaning":"수용 능력, 용량",
+    "example (English)":"The theater has a seating capacity of 500 people.",
+    "example (Korean)":"그 극장은 500명의 수용 능력을 가지고 있습니다.",
+    "level":1
+  },
+  {
+    "id":55,
+    "headword":"personnel",
+    "pos":"n.",
+    "meaning":"직원, 인원, 인사부서",
+    "example (English)":"The company is looking to hire more personnel.",
+    "example (Korean)":"그 회사는 더 많은 직원을 고용하려고 합니다.",
+    "level":1
+  },
+  {
+    "id":56,
+    "headword":"assure",
+    "pos":"v.",
+    "meaning":"안심시키다, 보증하다",
+    "example (English)":"I can assure you that your money is safe.",
+    "example (Korean)":"당신의 돈이 안전하다고 확신시켜 드릴 수 있습니다.",
+    "level":1
+  },
+  {
+    "id":57,
+    "headword":"prosperous",
+    "pos":"adj.",
+    "meaning":"번영하는",
+    "example (English)":"The company had a prosperous year.",
+    "example (Korean)":"그 회사는 번영하는 한 해를 보냈습니다.",
+    "level":1
+  },
+  {
+    "id":58,
+    "headword":"pedestrian",
+    "pos":"n.",
+    "meaning":"보행자",
+    "example (English)":"The pedestrian was hit by a car.",
+    "example (Korean)":"그 보행자는 차에 치였습니다.",
+    "level":1
+  },
+  {
+    "id":59,
+    "headword":"flaw",
+    "pos":"n.",
+    "meaning":"결함, 흠",
+    "example (English)":"There is a flaw in the design of the product.",
+    "example (Korean)":"그 제품의 디자인에 결함이 있습니다.",
+    "level":1
+  },
+  {
+    "id":60,
+    "headword":"guarantee",
+    "pos":"n.",
+    "meaning":"보증, 보장",
+    "example (English)":"The product comes with a one-year guarantee.",
+    "example (Korean)":"그 제품은 1년 보증이 포함됩니다.",
+    "level":1
+  },
+  {
+    "id":61,
+    "headword":"expense",
+    "pos":"n.",
+    "meaning":"비용, 지출",
+    "example (English)":"The company will reimburse your travel expenses.",
+    "example (Korean)":"그 회사는 당신의 여행 경비를 환급할 것입니다.",
+    "level":1
+  },
+  {
+    "id":62,
+    "headword":"statement",
+    "pos":"n.",
+    "meaning":"진술, 발표, 명세서",
+    "example (English)":"The company issued a statement about the new product.",
+    "example (Korean)":"그 회사는 새 제품에 대한 성명을 발표했습니다.",
+    "level":1
+  },
+  {
+    "id":63,
+    "headword":"regulation",
+    "pos":"n.",
+    "meaning":"규제, 규정",
+    "example (English)":"The company must comply with all government regulations.",
+    "example (Korean)":"그 회사는 모든 정부 규정을 준수해야 합니다.",
+    "level":1
+  },
+  {
+    "id":64,
+    "headword":"assume",
+    "pos":"v.",
+    "meaning":"가정하다, 맡다",
+    "example (English)":"I assume you have already seen the report.",
+    "example (Korean)":"당신이 이미 그 보고서를 봤다고 가정합니다.",
+    "level":1
+  },
+  {
+    "id":65,
+    "headword":"critical",
+    "pos":"adj.",
+    "meaning":"중요한, 중대한",
+    "example (English)":"The project is in a critical stage.",
+    "example (Korean)":"그 프로젝트는 중요한 단계에 있습니다.",
+    "level":1
+  },
+  {
+    "id":66,
+    "headword":"alleviate",
+    "pos":"v.",
+    "meaning":"완화하다, 덜어주다",
+    "example (English)":"The medication will alleviate your pain.",
+    "example (Korean)":"그 약은 당신의 통증을 완화시킬 것입니다.",
+    "level":1
+  },
+  {
+    "id":67,
+    "headword":"solicit",
+    "pos":"v.",
+    "meaning":"요청하다, 간청하다",
+    "example (English)":"The company is soliciting donations for the charity.",
+    "example (Korean)":"그 회사는 자선 단체를 위해 기부를 요청하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":68,
+    "headword":"unprecedented",
+    "pos":"adj.",
+    "meaning":"전례 없는",
+    "example (English)":"The company achieved unprecedented growth this year.",
+    "example (Korean)":"그 회사는 올해 전례 없는 성장을 달성했습니다.",
+    "level":1
+  },
+  {
+    "id":69,
+    "headword":"commute",
+    "pos":"v.",
+    "meaning":"출퇴근하다",
+    "example (English)":"He commutes to work by train.",
+    "example (Korean)":"그는 기차로 출퇴근합니다.",
+    "level":1
+  },
+  {
+    "id":70,
+    "headword":"corporate",
+    "pos":"adj.",
+    "meaning":"기업의, 법인의",
+    "example (English)":"The company is hosting a corporate event.",
+    "example (Korean)":"그 회사는 기업 행사를 개최하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":71,
+    "headword":"practical",
+    "pos":"adj.",
+    "meaning":"실용적인",
+    "example (English)":"The new tool is very practical for everyday use.",
+    "example (Korean)":"그 새 도구는 일상적인 사용에 매우 실용적입니다.",
+    "level":1
+  },
+  {
+    "id":72,
+    "headword":"deny",
+    "pos":"v.",
+    "meaning":"부인하다, 거부하다",
+    "example (English)":"He denied any involvement in the crime.",
+    "example (Korean)":"그는 그 범죄에 대한 어떠한 관여도 부인했습니다.",
+    "level":1
+  },
+  {
+    "id":73,
+    "headword":"fulfill",
+    "pos":"v.",
+    "meaning":"요구를 충족시키다",
+    "example (English)":"The company's goal is to fulfill customer needs.",
+    "example (Korean)":"그 회사의 목표는 고객의 요구를 충족시키는 것입니다.",
+    "level":1
+  },
+  {
+    "id":74,
+    "headword":"clarify",
+    "pos":"v.",
+    "meaning":"명확하게 하다",
+    "example (English)":"The manager asked me to clarify the report.",
+    "example (Korean)":"관리자는 보고서를 명확하게 해달라고 요청했습니다.",
+    "level":1
+  },
+  {
+    "id":75,
+    "headword":"draft",
+    "pos":"n.",
+    "meaning":"초안, 초고",
+    "example (English)":"I need to finish the first draft of my report by tomorrow.",
+    "example (Korean)":"내일까지 보고서의 초안을 끝내야 합니다.",
+    "level":1
+  },
+  {
+    "id":76,
+    "headword":"durable",
+    "pos":"adj.",
+    "meaning":"오래 지속되는, 견고한",
+    "example (English)":"This suitcase is very durable.",
+    "example (Korean)":"이 여행 가방은 매우 견고합니다.",
+    "level":1
+  },
+  {
+    "id":77,
+    "headword":"subscribe",
+    "pos":"v.",
+    "meaning":"정기 구독을 신청하다, 가입하다",
+    "example (English)":"You can subscribe to our newsletter on our website.",
+    "example (Korean)":"당신은 저희 웹사이트에서 뉴스레터를 정기 구독할 수 있습니다.",
+    "level":1
+  },
+  {
+    "id":78,
+    "headword":"coverage",
+    "pos":"n.",
+    "meaning":"보상 범위, 보도 범위",
+    "example (English)":"The insurance policy provides coverage for medical expenses.",
+    "example (Korean)":"그 보험 정책은 의료비에 대한 보상 범위를 제공합니다.",
+    "level":1
+  },
+  {
+    "id":79,
+    "headword":"recession",
+    "pos":"n.",
+    "meaning":"불경기, 경기 침체",
+    "example (English)":"The country is facing a recession.",
+    "example (Korean)":"그 나라는 불경기를 맞고 있습니다.",
+    "level":1
+  },
+  {
+    "id":80,
+    "headword":"accountable",
+    "pos":"adj.",
+    "meaning":"책임 있는",
+    "example (English)":"The manager is accountable for the team's performance.",
+    "example (Korean)":"그 관리자는 팀의 성과에 책임이 있습니다.",
+    "level":1
+  },
+  {
+    "id":81,
+    "headword":"dependable",
+    "pos":"adj.",
+    "meaning":"신뢰할 수 있는",
+    "example (English)":"He is a dependable employee who always finishes his work on time.",
+    "example (Korean)":"그는 항상 제시간에 일을 끝내는 신뢰할 수 있는 직원입니다.",
+    "level":1
+  },
+  {
+    "id":82,
+    "headword":"adjustment",
+    "pos":"n.",
+    "meaning":"조정, 적응",
+    "example (English)":"We made a few adjustments to the schedule.",
+    "example (Korean)":"우리는 일정에 몇 가지 조정을 했습니다.",
+    "level":1
+  },
+  {
+    "id":83,
+    "headword":"prestigious",
+    "pos":"adj.",
+    "meaning":"명망 있는, 존경받는",
+    "example (English)":"She received a prestigious award for her research.",
+    "example (Korean)":"그녀는 연구로 인해 명망 있는 상을 받았습니다.",
+    "level":1
+  },
+  {
+    "id":84,
+    "headword":"recognition",
+    "pos":"n.",
+    "meaning":"인정, 승인",
+    "example (English)":"He received recognition for his hard work.",
+    "example (Korean)":"그는 그의 노고에 대한 인정을 받았습니다.",
+    "level":1
+  },
+  {
+    "id":85,
+    "headword":"documentation",
+    "pos":"n.",
+    "meaning":"문서 작성, 기록, 증거 자료",
+    "example (English)":"Please provide the necessary documentation for your visa application.",
+    "example (Korean)":"비자 신청에 필요한 서류를 제공해 주십시오.",
+    "level":1
+  },
+  {
+    "id":86,
+    "headword":"negotiate",
+    "pos":"v.",
+    "meaning":"협상하다",
+    "example (English)":"The two companies are negotiating a new deal.",
+    "example (Korean)":"두 회사는 새로운 계약을 협상하고 있습니다.",
+    "level":1
+  },
+  {
+    "id":87,
+    "headword":"productivity",
+    "pos":"n.",
+    "meaning":"생산성",
+    "example (English)":"The new system will increase productivity.",
+    "example (Korean)":"새 시스템은 생산성을 증가시킬 것입니다.",
+    "level":1
+  },
+  {
+    "id":88,
+    "headword":"proposal",
+    "pos":"n.",
+    "meaning":"제안",
+    "example (English)":"He submitted a proposal for the new project.",
+    "example (Korean)":"그는 새 프로젝트에 대한 제안서를 제출했습니다.",
+    "level":1
+  },
+  {
+    "id":89,
+    "headword":"manual",
+    "pos":"n.",
+    "meaning":"주석서, 안내서",
+    "example (English)":"Please read the user manual before using the product.",
+    "example (Korean)":"제품을 사용하기 전에 사용자 안내서를 읽어 주십시오.",
+    "level":1
+  },
+  {
+    "id":90,
+    "headword":"obtain",
+    "pos":"v.",
+    "meaning":"얻다, 획득하다",
+    "example (English)":"You can obtain a copy of the report from our website.",
+    "example (Korean)":"저희 웹사이트에서 보고서 사본을 획득할 수 있습니다.",
+    "level":1
+  },
+  {
+    "id":91,
+    "headword":"alternative",
+    "pos":"n.",
+    "meaning":"대안, 선택 가능한 것",
+    "example (English)":"We need to find an alternative solution.",
+    "example (Korean)":"우리는 대안적인 해결책을 찾아야 합니다.",
+    "level":1
+  },
+  {
+    "id":92,
+    "headword":"appraisal",
+    "pos":"n.",
+    "meaning":"평가",
+    "example (English)":"The company conducts performance appraisals every year.",
+    "example (Korean)":"그 회사는 매년 성과 평가를 실시합니다.",
+    "level":1
+  },
+  {
+    "id":93,
+    "headword":"temporarily",
+    "pos":"adv.",
+    "meaning":"일시적으로",
+    "example (English)":"The road is temporarily closed for repairs.",
+    "example (Korean)":"도로는 수리를 위해 일시적으로 폐쇄되었습니다.",
+    "level":1
+  },
+  {
+    "id":94,
+    "headword":"relieve",
+    "pos":"v.",
+    "meaning":"고통이나 스트레스를 덜어주다",
+    "example (English)":"The medicine will relieve your headache.",
+    "example (Korean)":"그 약은 당신의 두통을 덜어줄 것입니다.",
+    "level":1
+  },
+  {
+    "id":95,
+    "headword":"beneficial",
+    "pos":"adj.",
+    "meaning":"이익이 되는",
+    "example (English)":"The new policy will be beneficial to the company.",
+    "example (Korean)":"새 정책은 회사에 이익이 될 것입니다.",
+    "level":1
+  },
+  {
+    "id":96,
+    "headword":"stagnant",
+    "pos":"adj.",
+    "meaning":"정체된, 흐르지 않는",
+    "example (English)":"The stagnant economy is a major concern.",
+    "example (Korean)":"정체된 경제는 주요한 우려사항입니다.",
+    "level":1
+  },
+  {
+    "id":97,
+    "headword":"tenure",
+    "pos":"n.",
+    "meaning":"재임 기간, 임기",
+    "example (English)":"His tenure as CEO was very successful.",
+    "example (Korean)":"CEO로서의 그의 재임 기간은 매우 성공적이었습니다.",
+    "level":1
+  },
+  {
+    "id":98,
+    "headword":"setback",
+    "pos":"n.",
+    "meaning":"방해, 좌절",
+    "example (English)":"The project suffered a minor setback.",
+    "example (Korean)":"그 프로젝트는 약간의 좌절을 겪었습니다.",
+    "level":1
+  },
+  {
+    "id":99,
+    "headword":"consistently",
+    "pos":"adv.",
+    "meaning":"일관되게",
+    "example (English)":"She consistently exceeds her sales goals.",
+    "example (Korean)":"그녀는 일관되게 판매 목표를 초과합니다.",
+    "level":1
+  },
+  {
+    "id":100,
+    "headword":"scrutinize",
+    "pos":"v.",
+    "meaning":"면밀히 검토하다",
+    "example (English)":"The auditors will scrutinize the company's financial records.",
+    "example (Korean)":"감사관들은 회사의 재정 기록을 면밀히 검토할 것입니다.",
+    "level":1
+  }
 ]

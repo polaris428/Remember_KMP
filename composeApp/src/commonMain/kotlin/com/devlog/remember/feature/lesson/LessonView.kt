@@ -48,7 +48,7 @@ fun LessonScreen(
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .padding(horizontal = 20.dp, vertical = 12.dp)
     ) {
-        // 헤더
+
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text("←", fontSize = 20.sp, modifier = Modifier.clickable { onBack() })
             Spacer(Modifier.width(8.dp))
@@ -61,7 +61,10 @@ fun LessonScreen(
 
         LinearProgressIndicator(
             progress = { knownCount / total.toFloat() },
-            modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(8.dp)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .clip(RoundedCornerShape(8.dp)),
             trackColor = Color(0xFFE5E7EB)
         )
 
@@ -77,21 +80,39 @@ fun LessonScreen(
                 .clickable { showMeaning = !showMeaning },
             contentAlignment = Alignment.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally,  modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp, horizontal = 18.dp),) {
                 if (!showMeaning) {
-                    Text(current.meaning, fontSize = 22.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                    Text(
+                        current.meaning,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Center
+                    )
+                    // ✅ 한국어 해석 표시
+                    if (current.exampleKo.isNotBlank()) {
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            current.exampleKo,
+                            fontSize = 14.sp,
+                            color = Color(0xFF9CA3AF),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                     Spacer(Modifier.height(8.dp))
+
                     Text("탭: 단어 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
                 } else {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            current.term,
+                            current.headword, // ✅ term → headword
                             fontSize = 36.sp,
                             fontWeight = FontWeight.ExtraBold,
                             textAlign = TextAlign.Center
                         )
                         Spacer(Modifier.width(12.dp))
-                        IconButton(onClick = { tts.speak(current.term) }) { // ✅ 발음 듣기
+                        IconButton(onClick = { tts.speak(current.headword) }) { // ✅ 발음 듣기
                             Icon(
                                 imageVector = Icons.Filled.VolumeUp,
                                 contentDescription = "Play pronunciation",
@@ -100,11 +121,19 @@ fun LessonScreen(
                         }
                     }
                     Spacer(Modifier.height(8.dp))
-                    Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
-                    current.example?.let {
+
+                    // ✅ 영어 예문 표시
+                    if (current.exampleEn.isNotBlank()) {
                         Spacer(Modifier.height(8.dp))
-                        Text(it, fontSize = 14.sp, color = Color(0xFF6B7280), textAlign = TextAlign.Center)
+                        Text(
+                            current.exampleEn,
+                            fontSize = 14.sp,
+                            color = Color(0xFF6B7280),
+                            textAlign = TextAlign.Center
+                        )
                     }
+                    Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
+
                 }
             }
         }
