@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -21,6 +22,9 @@ import com.devlog.remember.designsystem.ButtonStyle
 import com.devlog.remember.designsystem.RDSButton
 import com.devlog.remember.model.Word
 import com.devlog.remember.utils.rememberPlatformTts
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+
 
 @Composable
 fun LessonScreen(
@@ -33,13 +37,12 @@ fun LessonScreen(
     var knownCount by remember { mutableStateOf(0) }
     var showMeaning by remember(queue.size) { mutableStateOf(true) }
 
-    val tts = rememberPlatformTts() // ✅ TTS 연결
+    val tts = rememberPlatformTts()
 
     if (queue.isEmpty()) {
         LaunchedEffect(Unit) { onFinished() }
         return
     }
-
     val current = queue.first()
 
     Column(
@@ -48,125 +51,237 @@ fun LessonScreen(
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .padding(horizontal = 20.dp, vertical = 12.dp)
     ) {
-
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("←", fontSize = 20.sp, modifier = Modifier.clickable { onBack() })
-            Spacer(Modifier.width(8.dp))
-            Text("오늘 학습", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            Spacer(Modifier.weight(1f))
-            Text("$knownCount / $total", color = Color(0xFF6B7280))
-        }
-
+        LessonHeader(knownCount = knownCount, total = total, onBack = onBack)
         Spacer(Modifier.height(8.dp))
 
-        LinearProgressIndicator(
-            progress = { knownCount / total.toFloat() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            trackColor = Color(0xFFE5E7EB)
-        )
-
+        LessonProgress(knownCount = knownCount, total = total)
         Spacer(Modifier.height(16.dp))
 
-        // 카드
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .clip(RoundedCornerShape(24.dp))
-                .background(Color(0xFFF3F4F6))
-                .clickable { showMeaning = !showMeaning },
-            contentAlignment = Alignment.Center
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally,  modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 20.dp, horizontal = 18.dp),) {
-                if (!showMeaning) {
-                    Text(
-                        current.meaning,
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        textAlign = TextAlign.Center
-                    )
-                    // ✅ 한국어 해석 표시
-                    if (current.exampleKo.isNotBlank()) {
-                        Spacer(Modifier.height(4.dp))
-                        Text(
-                            current.exampleKo,
-                            fontSize = 14.sp,
-                            color = Color(0xFF9CA3AF),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                    Spacer(Modifier.height(8.dp))
-
-                    Text("탭: 단어 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
-                } else {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            current.headword, // ✅ term → headword
-                            fontSize = 36.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(Modifier.width(12.dp))
-                        IconButton(onClick = { tts.speak(current.headword) }) { // ✅ 발음 듣기
-                            Icon(
-                                imageVector = Icons.Filled.VolumeUp,
-                                contentDescription = "Play pronunciation",
-                                tint = Color(0xFF4B5563)
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(8.dp))
-
-                    // ✅ 영어 예문 표시
-                    if (current.exampleEn.isNotBlank()) {
-                        Spacer(Modifier.height(8.dp))
-                        Text(
-                            current.exampleEn,
-                            fontSize = 14.sp,
-                            color = Color(0xFF6B7280),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                    Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
-
-                }
-            }
-        }
+        LessonCard(
+            word = current,
+            showMeaning = showMeaning,
+            onToggle = { showMeaning = !showMeaning },
+            onSpeak = { tts.speak(current.headword) }
+        )
 
         Spacer(Modifier.height(8.dp))
 
-        // 버튼 영역
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            RDSButton(
-                onClick = {
-                    queue.addLast(queue.removeFirst())
-                    showMeaning = true
-                },
-                modifier = Modifier.fillMaxWidth(),
-                style = ButtonStyle.Danger,
-                size = ButtonSize.Large,
-                text = "모르는 단어예요"
-            )
+        LessonActions(
+            onUnknown = {
+                queue.addLast(queue.removeFirst())
+                showMeaning = true
+            },
+            onKnown = {
+                queue.removeFirst()
+                knownCount++
+                showMeaning = true
+            }
+        )
+    }
+}
 
-            RDSButton(
-                onClick = {
-                    queue.removeFirst()
-                    knownCount++
-                    showMeaning = true
-                },
-                modifier = Modifier.fillMaxWidth(),
-                style = ButtonStyle.Success,
-                size = ButtonSize.Large,
-                text = "알고 있는 단어예요"
-            )
+@Composable
+private fun LessonHeader(knownCount: Int, total: Int, onBack: () -> Unit) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        EdgeIconButton(onClick = onBack)
+        Spacer(Modifier.width(8.dp))
+        Text("오늘 학습", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+        Spacer(Modifier.weight(1f))
+        Text("$knownCount / $total", color = Color(0xFF6B7280))
+    }
+}
+
+@Composable
+private fun LessonProgress(knownCount: Int, total: Int) {
+    LinearProgressIndicator(
+        progress = { knownCount / total.toFloat() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+            .clip(RoundedCornerShape(8.dp)),
+        trackColor = Color(0xFFE5E7EB)
+    )
+}
+
+@Composable
+private fun LessonCard(
+    word: Word,
+    showMeaning: Boolean,
+    onToggle: () -> Unit,
+    onSpeak: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(24.dp))
+            .background(Color(0xFFF3F4F6))
+            .clickable { onToggle() },
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp, horizontal = 18.dp)
+        ) {
+            if (!showMeaning) {
+                Text(
+                    word.meaning,
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 44.sp,
+                )
+                if (word.exampleKo.isNotBlank()) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        word.exampleKo,
+                        fontSize = 14.sp,
+                        color = Color(0xFF9CA3AF),
+                        textAlign = TextAlign.Start,
+                        lineHeight = 20.sp
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
+                Text("탭: 단어 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
+            } else {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        word.headword,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Center,
+
+                    )
+                    Spacer(Modifier.width(12.dp))
+                    IconButton(onClick = onSpeak) {
+                        Icon(
+                            imageVector = Icons.Filled.VolumeUp,
+                            contentDescription = "Play pronunciation",
+                            tint = Color(0xFF4B5563)
+                        )
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                if (word.exampleEn.isNotBlank()) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        word.exampleEn,
+                        fontSize = 14.sp,
+                        color = Color(0xFF6B7280),
+                        textAlign = TextAlign.Start,
+                        lineHeight = 20.sp
+                    )
+                }
+                Text("탭: 뜻/예문 보기", fontSize = 14.sp, color = Color(0xFF9CA3AF))
+            }
         }
     }
+}
+
+@Composable
+private fun LessonActions(
+    onUnknown: () -> Unit,
+    onKnown: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth().fillMaxHeight(1f),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        RDSButton(
+            onClick = onUnknown,
+            modifier = Modifier.fillMaxWidth(),
+            style = ButtonStyle.Danger,
+            size = ButtonSize.Large,
+            text = "모르는 단어예요"
+        )
+        Spacer(Modifier.height(16.dp))
+        RDSButton(
+            onClick = onKnown,
+            modifier = Modifier.fillMaxWidth(),
+            style = ButtonStyle.Success,
+            size = ButtonSize.Large,
+            text = "알고 있는 단어예요"
+        )
+    }
+}
+
+@Composable
+private fun EdgeIconButton(onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .width(48.dp)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Icon(
+            imageVector = Icons.Filled.ArrowBack,
+            contentDescription = "뒤로가기",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+
+
+private fun sampleWord() = Word(
+    id = 1,
+    headword = "executive",
+    pos = "n.",
+    meaning = "경영진, 임원",
+    exampleEn = "All of the executives agreed with the new policy.",
+    exampleKo = "모든 경영진이 새 정책에 동의했습니다.",
+    level = 1
+)
+
+@Preview
+@Composable
+private fun PreviewLessonHeader() {
+    LessonHeader(knownCount = 3, total = 10, onBack = {})
+}
+
+@Preview
+@Composable
+private fun PreviewLessonProgress() {
+    LessonProgress(knownCount = 5, total = 10)
+}
+
+@Preview
+@Composable
+private fun PreviewLessonCardMeaning() {
+    LessonCard(
+        word = sampleWord(),
+        showMeaning = false,
+        onToggle = {},
+        onSpeak = {}
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewLessonCardWord() {
+    LessonCard(
+        word = sampleWord(),
+        showMeaning = true,
+        onToggle = {},
+        onSpeak = {}
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewLessonActions() {
+    LessonActions(onUnknown = {}, onKnown = {})
+}
+@Preview
+@Composable
+private fun PreviewLessonScreen() {
+    LessonScreen(
+        batch = listOf(
+            sampleWord(),
+            sampleWord().copy(id = 2, headword = "innovation", meaning = "혁신")
+        ),
+        onFinished = {},
+        onBack = {}
+    )
 }
