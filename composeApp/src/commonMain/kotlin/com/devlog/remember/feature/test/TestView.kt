@@ -5,6 +5,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devlog.remember.model.Word
+import com.devlog.remember.utils.rememberPlatformTts
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayDeque
@@ -54,7 +57,7 @@ fun TestScreen(
 
     val current = queue.first()
     val options = remember(current, words) { makeOptions(words, current) }
-
+    val tts = rememberPlatformTts()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +103,25 @@ fun TestScreen(
                 modifier = Modifier.padding(vertical = 20.dp, horizontal = 18.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(current.term, fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, color = titleTx)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        current.term,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = titleTx,
+                        modifier = Modifier.weight(1f)
+                    )
+                    IconButton(onClick = { tts.speak(current.term) }) { // ✅ 듣기 버튼
+                        Icon(
+                            imageVector = Icons.Filled.VolumeUp,
+                            contentDescription = "Play pronunciation",
+                            tint = Color(0xFF4B5563)
+                        )
+                    }
+                }
                 Spacer(Modifier.height(6.dp))
                 Text("n. • L1", fontSize = 14.sp, color = hintTx) // 필요 없으면 지워도 됨
                 Spacer(Modifier.height(16.dp))
