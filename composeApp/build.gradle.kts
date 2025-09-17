@@ -30,6 +30,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.mixpanel.android:mixpanel-android:8.2.2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)

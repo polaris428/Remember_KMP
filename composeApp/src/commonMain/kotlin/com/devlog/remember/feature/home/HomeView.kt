@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devlog.remember.designsystem.ButtonStyle
 import com.devlog.remember.designsystem.RDSButton
+import com.devlog.remember.utils.Analytics
 
 @Composable
 fun HomeScreen(
@@ -20,6 +21,7 @@ fun HomeScreen(
     onStartLesson: () -> Unit,
 
 ) {
+    Analytics.track("app_open")
     Column(
         modifier = Modifier
             .fillMaxSize()

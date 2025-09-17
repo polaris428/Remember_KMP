@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		679F682D2E7ADAFF0053043E /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 679F682C2E7ADAFF0053043E /* Mixpanel */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		35B695B3F572B8D4A2F98B21 /* Remember.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remember.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -41,12 +45,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				679F682D2E7ADAFF0053043E /* Mixpanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7842EB81558CA362D421E696 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35B695B3F572B8D4A2F98B21 /* Remember.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D19E9FFECCAF5E0C005B8A07 = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +67,6 @@
 				26AB6FE2AA9FE0A503C82222 /* iosApp */,
 				7842EB81558CA362D421E696 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		7842EB81558CA362D421E696 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				35B695B3F572B8D4A2F98B21 /* Remember.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +90,7 @@
 			);
 			name = iosApp;
 			packageProductDependencies = (
+				679F682C2E7ADAFF0053043E /* Mixpanel */,
 			);
 			productName = iosApp;
 			productReference = 35B695B3F572B8D4A2F98B21 /* Remember.app */;
@@ -114,6 +120,9 @@
 			);
 			mainGroup = D19E9FFECCAF5E0C005B8A07;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				679F682B2E7ADAFF0053043E /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7842EB81558CA362D421E696 /* Products */;
 			projectDirPath = "";
@@ -232,6 +241,34 @@
 			};
 			name = Debug;
 		};
+		5B15EF746D8D62403F55ABB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		6483F70DC6E98276D0FF9B8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 7337EA7585812B3DC9AC8FA0 /* Configuration */;
@@ -290,34 +327,6 @@
 			};
 			name = Release;
 		};
-		5B15EF746D8D62403F55ABB4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		AFE5526F1B3798ECE88D7790 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -349,15 +358,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F556CAFA041C5CD244AE62DC /* Build configuration list for PBXProject "iosApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2CE1B905EB3574B483A947C2 /* Debug */,
-				6483F70DC6E98276D0FF9B8B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		BAB69FAB4CEE4946844BE1CC /* Build configuration list for PBXNativeTarget "iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -367,7 +367,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F556CAFA041C5CD244AE62DC /* Build configuration list for PBXProject "iosApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CE1B905EB3574B483A947C2 /* Debug */,
+				6483F70DC6E98276D0FF9B8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		679F682B2E7ADAFF0053043E /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		679F682C2E7ADAFF0053043E /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 679F682B2E7ADAFF0053043E /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4A13361F1D1630DC92FBF6F /* Project object */;
 }
