@@ -21,7 +21,7 @@ fun HomeScreen(
     onStartLesson: () -> Unit,
 
 ) {
-    Analytics.track("app_open")
+
     Column(
         modifier = Modifier
             .fillMaxSize()

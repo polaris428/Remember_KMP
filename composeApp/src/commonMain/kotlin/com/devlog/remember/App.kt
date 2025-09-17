@@ -8,6 +8,7 @@ import com.devlog.remember.feature.home.HomeScreen
 import com.devlog.remember.feature.lesson.LessonScreen
 import com.devlog.remember.feature.test.TestScreen
 import com.devlog.remember.model.Word
+import com.devlog.remember.utils.Analytics
 
 enum class Route { Home, Lesson , Test }
 
@@ -43,6 +44,7 @@ fun App() {
             Route.Home -> HomeScreen(
                 totalLearned = totalLearned,
                 onStartLesson = {
+                    Analytics.track("Lesson_Started")
                     val start = globalIdx.coerceIn(0, words.size)
                     val end = (start + dailyGoal).coerceAtMost(words.size)
                     sessionBatch = words.subList(start, end)
@@ -78,6 +80,7 @@ fun App() {
                     globalIdx    = newIndex
                     totalLearned = ProgressStore.loadTotal()
                     todayCount   = ProgressStore.loadTodayCount()
+                    Analytics.track("Lesson_Completed")
 
                     // 홈으로 복귀
                     route = Route.Home

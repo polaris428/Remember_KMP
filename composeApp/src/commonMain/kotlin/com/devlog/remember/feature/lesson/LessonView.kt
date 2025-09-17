@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +25,11 @@ import com.devlog.remember.model.Word
 import com.devlog.remember.utils.rememberPlatformTts
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+private data class LessonState(
+    val queue: List<Word>,
+    val knownCount: Int,
+    val showMeaning: Boolean
+)
 
 
 @Composable
@@ -33,9 +39,20 @@ fun LessonScreen(
     onBack: () -> Unit
 ) {
     val total = batch.size.coerceAtLeast(1)
-    val queue = remember(batch) { ArrayDeque(batch) }
+
+    // 불변 리스트를 상태로 들고가기 (앞서 안내한 방식 유지)
+    var queue by remember(batch) { mutableStateOf(batch.toList()) }
     var knownCount by remember { mutableStateOf(0) }
-    var showMeaning by remember(queue.size) { mutableStateOf(true) }
+    var showMeaning by rememberSaveable { mutableStateOf(true) }
+
+    // ✅ 이전으로 되돌리기용 스택
+    val history = remember { mutableStateListOf<LessonState>() }
+
+    fun pushSnapshot() {
+        history.add(LessonState(queue = queue, knownCount = knownCount, showMeaning = showMeaning))
+    }
+
+    val canGoPrev = history.isNotEmpty()
 
     val tts = rememberPlatformTts()
 
@@ -67,18 +84,33 @@ fun LessonScreen(
         Spacer(Modifier.height(8.dp))
 
         LessonActions(
+            onPrevious = {
+                if (history.isNotEmpty()) {
+                    val prev = history.removeAt(history.lastIndex)
+                    queue = prev.queue
+                    knownCount = prev.knownCount
+                    showMeaning = prev.showMeaning
+                }
+            },
+            canGoPrevious = canGoPrev,
             onUnknown = {
-                queue.addLast(queue.removeFirst())
+                // 현재 상태 저장 후 → 앞으로 진행(모르는 단어: 맨 뒤로 회전)
+                pushSnapshot()
+                val first = queue.first()
+                queue = queue.drop(1) + first
                 showMeaning = true
             },
             onKnown = {
-                queue.removeFirst()
+                // 현재 상태 저장 후 → 알고 있는 단어 제거 + 카운트 증가
+                pushSnapshot()
+                queue = queue.drop(1)
                 knownCount++
                 showMeaning = true
             }
         )
     }
 }
+
 
 @Composable
 private fun LessonHeader(knownCount: Int, total: Int, onBack: () -> Unit) {
@@ -181,13 +213,29 @@ private fun LessonCard(
 
 @Composable
 private fun LessonActions(
+    onPrevious: () -> Unit,
+    canGoPrevious: Boolean,
     onUnknown: () -> Unit,
     onKnown: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(1f),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(1f),
         verticalArrangement = Arrangement.Bottom
     ) {
+
+
+        RDSButton(
+            onClick = onPrevious,
+            enabled = canGoPrevious,
+            modifier = Modifier.fillMaxWidth(),
+            style = ButtonStyle.Primary,
+            size = ButtonSize.Large,
+            text = "이전으로"
+        )
+        Spacer(Modifier.height(16.dp))
+
         RDSButton(
             onClick = onUnknown,
             modifier = Modifier.fillMaxWidth(),
@@ -205,6 +253,7 @@ private fun LessonActions(
         )
     }
 }
+
 
 @Composable
 private fun EdgeIconButton(onClick: () -> Unit) {
@@ -271,7 +320,12 @@ private fun PreviewLessonCardWord() {
 @Preview
 @Composable
 private fun PreviewLessonActions() {
-    LessonActions(onUnknown = {}, onKnown = {})
+    LessonActions(
+        onPrevious = {},
+        canGoPrevious = true,
+        onUnknown = {},
+        onKnown = {}
+    )
 }
 @Preview
 @Composable

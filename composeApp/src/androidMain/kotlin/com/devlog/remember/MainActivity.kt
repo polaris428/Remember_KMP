@@ -16,6 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val trackAutomaticEvents = false;
         Analytics.install(AndroidAnalytics(MixpanelAPI.getInstance(applicationContext,"cb6660b7534b41cbba6bf01b403eb908",trackAutomaticEvents )))
+        Analytics.track("App_Opened")
         setContent {
             App()
         }
